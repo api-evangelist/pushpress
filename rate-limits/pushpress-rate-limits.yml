@@ -1,0 +1,55 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: PushPress
+providerId: pushpress
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Fitness
+- Gym Management
+- SaaS
+- Rate Limiting
+- Quotas
+description: >-
+  PushPress does not publish fixed numeric rate limits for the Platform API in
+  its public reference as of the review date. The official SDK ships automatic
+  retry behavior with exponential backoff on 5XX responses and connection
+  errors, which implies clients should be resilient to transient throttling and
+  server errors. Treat HTTP 429 as the throttle signal, honor any Retry-After
+  header, and back off exponentially with jitter.
+notes: >-
+  No per-account or per-endpoint numeric request-rate limit is documented.
+  Verify current limits with PushPress during partner onboarding. Webhook
+  delivery volume scales with account activity rather than a published request
+  cap.
+sources:
+- https://ppe.apidocumentation.com/
+- https://github.com/PushPress/pushpress-ts
+responseCodes:
+  throttled: 429
+limits:
+- name: Platform API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the Platform API.
+- name: Messaging Sends
+  scope: account
+  metric: messages
+  limit: not published
+  notes: Email / SMS / push / notification send volume is subject to platform and downstream carrier limits, not a published API cap.
+policies:
+- name: Retry with Backoff
+  description: >-
+    The official SDK retries on 5XX responses and connection errors using an
+    exponential backoff strategy (initial 500ms, up to 60s, ~1.5x exponent).
+    Clients should implement the same and honor Retry-After on 429 responses.
+- name: Idempotency
+  description: >-
+    Prefer read-then-write patterns and treat webhook deliveries as
+    at-least-once; deduplicate on event id where retries may occur.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,161 @@
+aid: pushpress
+name: PushPress
+review:
+  question: Does PushPress expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-12'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. The PushPress Platform API is
+    request/response REST over HTTPS. Its event-driven surface is delivered by
+    outbound platform webhooks (PushPress POSTs signed JSON event payloads to a
+    subscriber URL) - server-to-endpoint HTTP, not a WebSocket the consumer
+    connects to. PushPress does publish "realtime" notifications, but those are
+    sent by a REST POST (/messages/notification/send) that hands the event off
+    to Ably's Realtime service; the WebSocket in that path belongs to Ably, a
+    third party, and is not a documented PushPress WebSocket endpoint. There is
+    no PushPress ws:// or wss:// surface to model.
+findings:
+  summary: |
+    PushPress does not publish a documented public WebSocket API. The PushPress
+    Platform API (v3) is a REST API served at https://api.pushpress.com/v3
+    (staging https://api.pushpressstage.com/v3, dev https://api.pushpressdev.com/v3).
+    Every request is authenticated with an API key in the `API-KEY` header and
+    scoped to a single gym location via a `company-id` header. Real-time
+    integration is provided two ways, neither of which is a consumer-facing
+    WebSocket: (1) outbound platform webhooks that POST signed JSON event
+    payloads to subscriber URLs, and (2) a REST "send notification" endpoint
+    that publishes to an Ably Realtime channel (Ably, not PushPress, owns that
+    WebSocket transport). No PushPress ws:// or wss:// endpoint is documented.
+  accessModel: |
+    The API is available to gym operators and their integration partners. API
+    keys are issued from the PushPress developer portal (developer.pushpress.com)
+    and can also be created/listed/revoked programmatically via the /keys
+    endpoints. The official SDK is @pushpress/pushpress (Speakeasy-generated
+    TypeScript, also runnable as an MCP server) and public API reference is
+    hosted at ppe.apidocumentation.com. The SDK is described by its maintainers
+    as early/alpha, so surface details can still change.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.pushpress.com/v3
+      documented: true
+      note: The entire PushPress Platform API is request/response REST over HTTPS.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: PushPress POSTs signed JSON event payloads to subscriber URLs. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: Ably Realtime
+      scheme: wss
+      documented: true
+      note: >-
+        /messages/notification/send publishes an event to an Ably Realtime
+        channel. The WebSocket belongs to Ably (third party); PushPress exposes
+        only the REST send endpoint, not a WebSocket of its own.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No first-party PushPress WebSocket endpoint is documented as of the review date.
+  endpointsConfirmed:
+    note: >-
+      HTTP methods and path templates below are confirmed against the official
+      Speakeasy-generated PushPress SDK (@pushpress/pushpress, production server
+      https://api.pushpress.com/v3) and the public API reference. Request and
+      response schemas in the OpenAPI are modeled by API Evangelist and should
+      be reconciled against the authoritative PushPress OpenAPI.
+    endpoints:
+      - GET    https://api.pushpress.com/v3/company
+      - GET    https://api.pushpress.com/v3/customers
+      - POST   https://api.pushpress.com/v3/customers
+      - GET    https://api.pushpress.com/v3/customers/{uuid}
+      - GET    https://api.pushpress.com/v3/attributions/attributions
+      - POST   https://api.pushpress.com/v3/attributions/attributions
+      - GET    https://api.pushpress.com/v3/attributions/attributions/{uuid}
+      - GET    https://api.pushpress.com/v3/checkins/count
+      - GET    https://api.pushpress.com/v3/checkins/class
+      - GET    https://api.pushpress.com/v3/checkins/class/{uuid}
+      - GET    https://api.pushpress.com/v3/checkins/appointment
+      - GET    https://api.pushpress.com/v3/checkins/appointment/{uuid}
+      - GET    https://api.pushpress.com/v3/checkins/event
+      - GET    https://api.pushpress.com/v3/checkins/event/{uuid}
+      - GET    https://api.pushpress.com/v3/checkins/open
+      - GET    https://api.pushpress.com/v3/checkins/open/{uuid}
+      - GET    https://api.pushpress.com/v3/appts/{id}
+      - GET    https://api.pushpress.com/v3/classes/{id}
+      - GET    https://api.pushpress.com/v3/classes/types
+      - GET    https://api.pushpress.com/v3/classes/types/{id}
+      - GET    https://api.pushpress.com/v3/events
+      - GET    https://api.pushpress.com/v3/events/{id}
+      - GET    https://api.pushpress.com/v3/enrollments
+      - GET    https://api.pushpress.com/v3/enrollments/{uuid}
+      - GET    https://api.pushpress.com/v3/plans/{id}
+      - GET    https://api.pushpress.com/v3/invitations
+      - POST   https://api.pushpress.com/v3/invitations
+      - GET    https://api.pushpress.com/v3/invitations/{id}
+      - DELETE https://api.pushpress.com/v3/invitations/{id}
+      - POST   https://api.pushpress.com/v3/messages/email/send
+      - POST   https://api.pushpress.com/v3/messages/sms/send
+      - POST   https://api.pushpress.com/v3/messages/push/send
+      - POST   https://api.pushpress.com/v3/messages/notification/send
+      - GET    https://api.pushpress.com/v3/keys
+      - POST   https://api.pushpress.com/v3/keys
+      - GET    https://api.pushpress.com/v3/keys/{id}
+      - PATCH  https://api.pushpress.com/v3/keys/{id}/revoke
+      - GET    https://api.pushpress.com/v3/webhooks
+      - POST   https://api.pushpress.com/v3/webhooks
+      - GET    https://api.pushpress.com/v3/webhooks/{uuid}
+      - PATCH  https://api.pushpress.com/v3/webhooks/{uuid}
+      - DELETE https://api.pushpress.com/v3/webhooks/{uuid}
+      - PATCH  https://api.pushpress.com/v3/webhooks/{uuid}/activate
+      - PATCH  https://api.pushpress.com/v3/webhooks/{uuid}/deactivate
+      - POST   https://api.pushpress.com/v3/webhooks/{uuid}/rotate-signing-secret
+  webhookEvents:
+    note: Event types a webhook subscription can deliver, confirmed from the official SDK event handlers.
+    events:
+      - checkin.created
+      - checkin.updated
+      - checkin.deleted
+      - customer.created
+      - customer.deleted
+      - customer.statusChanged
+      - customer.detailsChanged
+      - appointment.scheduled
+      - appointment.rescheduled
+      - appointment.canceled
+      - appointment.noshowed
+      - class.canceled
+      - enrollment.created
+      - enrollment.deleted
+      - enrollment.statusChanged
+      - reservation.created
+      - reservation.waitlisted
+      - reservation.canceled
+      - app.installed
+      - app.uninstalled
+sources:
+  - url: https://ppe.apidocumentation.com/
+    type: APIReference
+    note: Public PushPress Platform API reference (Scalar). All documented operations are HTTPS REST.
+  - url: https://github.com/PushPress/pushpress-ts
+    type: SourceCode
+    note: Official PushPress TypeScript SDK (Speakeasy-generated); confirms base URL, API-KEY auth, and operations.
+  - url: https://www.npmjs.com/package/@pushpress/pushpress
+    type: SDK
+    note: Published SDK / MCP server package; production server https://api.pushpress.com/v3.
+  - url: https://developer.pushpress.com
+    type: DeveloperPortal
+    note: Developer portal where API keys are issued (login required).
+  - url: https://www.pushpress.com/pricing
+    type: Pricing
+    note: Per-location gym SaaS pricing (Free, Pro, Max) plus add-ons and payment processing.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No first-party WebSocket protocol surface exists. PushPress's real-time
+    delivery is outbound webhooks (server-to-endpoint HTTP) plus an Ably-backed
+    realtime publish that is invoked over REST. No AsyncAPI document was created
+    because there is no PushPress-owned server-push transport to model. Endpoint
+    paths and methods are grounded in the official SDK and public reference;
+    schemas in the OpenAPI are modeled and flagged as such.

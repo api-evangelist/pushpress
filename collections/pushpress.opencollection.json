@@ -1,0 +1,833 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PushPress Platform API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "name": "API-KEY",
+      "in": "header",
+      "value": "{{apiKey}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get company details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/company"
+          },
+          "docs": "Retrieves details for the company (gym) the API key is scoped to."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/customers"
+          },
+          "docs": "Lists customers (members and leads) for the company, with pagination."
+        },
+        {
+          "info": {
+            "name": "Create a new customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/customers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new customer (member or lead) for the company."
+        },
+        {
+          "info": {
+            "name": "Get customer details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/customers/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single customer by UUID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Attributions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List customer attributions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/attributions/attributions"
+          },
+          "docs": "Lists lead-source / marketing attributions for customers."
+        },
+        {
+          "info": {
+            "name": "Create a customer attribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/attributions/attributions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a lead-source / marketing attribution for a customer."
+        },
+        {
+          "info": {
+            "name": "Get a customer attribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/attributions/attributions/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single customer attribution by UUID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Checkins",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get check-in count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/count"
+          },
+          "docs": "Returns the number of check-ins matching the supplied filters."
+        },
+        {
+          "info": {
+            "name": "List class check-ins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/class"
+          },
+          "docs": "Lists check-ins associated with scheduled classes."
+        },
+        {
+          "info": {
+            "name": "Get class check-in details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/class/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single class check-in by UUID."
+        },
+        {
+          "info": {
+            "name": "List appointment check-ins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/appointment"
+          },
+          "docs": "Lists check-ins associated with appointments."
+        },
+        {
+          "info": {
+            "name": "Get appointment check-in details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/appointment/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single appointment check-in by UUID."
+        },
+        {
+          "info": {
+            "name": "List event check-ins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/event"
+          },
+          "docs": "Lists check-ins associated with events."
+        },
+        {
+          "info": {
+            "name": "Get event check-in details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/event/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single event check-in by UUID."
+        },
+        {
+          "info": {
+            "name": "List open-facility check-ins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/open"
+          },
+          "docs": "Lists open-gym / open-facility check-ins not tied to a class, appointment, or event."
+        },
+        {
+          "info": {
+            "name": "Get open-facility check-in details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/checkins/open/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single open-facility check-in by UUID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Appointments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get details for an appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/appts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single appointment by ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Classes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get details for a class",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/classes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single scheduled class by ID."
+        },
+        {
+          "info": {
+            "name": "List class types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/classes/types"
+          },
+          "docs": "Lists the class types offered by the gym."
+        },
+        {
+          "info": {
+            "name": "Get a class type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/classes/types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single class type by ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/events"
+          },
+          "docs": "Lists gym events, with pagination."
+        },
+        {
+          "info": {
+            "name": "Get details for an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single event by ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Enrollments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List plan enrollments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/enrollments"
+          },
+          "docs": "Lists customer enrollments in membership plans, with pagination."
+        },
+        {
+          "info": {
+            "name": "Get plan enrollment details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/enrollments/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single plan enrollment by UUID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get plan details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/plans/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single membership / billing plan by ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Invitations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/invitations"
+          },
+          "docs": "Lists outstanding invitations for the company."
+        },
+        {
+          "info": {
+            "name": "Create invitations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/invitations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one or more invitations for members or staff to join the gym."
+        },
+        {
+          "info": {
+            "name": "Get an invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/invitations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single invitation by ID."
+        },
+        {
+          "info": {
+            "name": "Delete an invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pushpress.com/v3/invitations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Deletes (revokes) an invitation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/messages/email/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a transactional email to a customer."
+        },
+        {
+          "info": {
+            "name": "Send an SMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/messages/sms/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a transactional SMS to a customer."
+        },
+        {
+          "info": {
+            "name": "Send a push notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/messages/push/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a push notification to a customer's member app."
+        },
+        {
+          "info": {
+            "name": "Send a notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/messages/notification/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends an in-app / realtime notification. First-party apps can publish realtime events to an Ably channel through this endpoint. This is a REST request that hands off to Ably; PushPress does not expose its own WebSocket endpoint to API consumers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "ApiKeys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List API keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/keys"
+          },
+          "docs": "Lists the API keys for the company."
+        },
+        {
+          "info": {
+            "name": "Create a new API key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new API key for the company."
+        },
+        {
+          "info": {
+            "name": "Get API key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single API key by ID."
+        },
+        {
+          "info": {
+            "name": "Revoke an API key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pushpress.com/v3/keys/:id/revoke",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Revokes an API key so it can no longer be used."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/webhooks"
+          },
+          "docs": "Lists platform webhooks for the company, including signing secret and event subscriptions."
+        },
+        {
+          "info": {
+            "name": "Create a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a platform webhook that listens for events on the PushPress platform and delivers them to a target URL."
+        },
+        {
+          "info": {
+            "name": "Get webhook details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/webhooks/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Retrieves a single webhook by UUID, including signing secret and event subscriptions."
+        },
+        {
+          "info": {
+            "name": "Update a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pushpress.com/v3/webhooks/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a webhook's target URL or event subscriptions."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pushpress.com/v3/webhooks/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Deletes a webhook subscription."
+        },
+        {
+          "info": {
+            "name": "Activate a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pushpress.com/v3/webhooks/:uuid/activate",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Activates a previously deactivated webhook."
+        },
+        {
+          "info": {
+            "name": "Deactivate a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pushpress.com/v3/webhooks/:uuid/deactivate",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Deactivates a webhook without deleting it."
+        },
+        {
+          "info": {
+            "name": "Rotate a webhook signing secret",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/webhooks/:uuid/rotate-signing-secret",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "Path parameter."
+              }
+            ]
+          },
+          "docs": "Rotates the signing secret used to verify webhook payload signatures."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

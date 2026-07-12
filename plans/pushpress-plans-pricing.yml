@@ -1,0 +1,163 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: PushPress
+providerId: pushpress
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Fitness
+- Gym Management
+- Membership Management
+- SaaS
+- Plans
+description: >-
+  PushPress is priced as a per-location SaaS subscription for gyms and fitness
+  businesses, with three published base tiers - a free Core plan and two paid
+  plans (Pro and Max) - billed monthly with no long-term contract. Add-on
+  products (for example Train, Grow, and a Branded App) layer additional monthly
+  cost on top of the base subscription, and client billing runs through
+  PushPress payment processing at per-transaction rates that improve on paid
+  plans. The Platform API and webhooks are part of the platform, not a
+  separately metered API product. Exact figures below reflect publicly reported
+  pricing and are not reconciled against a live quote.
+notes: >-
+  Prices are per gym location per month and were reported publicly around mid
+  2026 (Free $0, Pro ~$159/mo, Max ~$229/mo; full stack with add-ons can exceed
+  $500/mo). Payment processing on Pro was reported at 2.89% + $0.30 per card
+  transaction and 0.79% + $0.30 for ACH. Verify current tiers, add-on pricing,
+  and processing rates on the PushPress pricing page during reconciliation.
+sources:
+- https://www.pushpress.com/pricing
+- https://www.pushpress.com/blog/what-does-gym-software-really-cost
+- https://www.g2.com/products/pushpress/pricing
+- https://www.capterra.com/p/172781/PushPress/
+plans:
+- id: pushpress-core-free
+  name: Core (Free)
+  type: free
+  description: >-
+    Full operating platform for new and small gyms - memberships, billing,
+    scheduling, check-ins, digital waivers, and a member app - at no monthly
+    fee, with no contract or setup fee. Client billing still incurs payment
+    processing fees, at higher transaction rates than the paid plans.
+  entries:
+  - label: Monthly Subscription
+    name: core_free_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: '0'
+    userMultiplied: false
+  elements:
+  - name: Membership Management
+  - name: Billing and Payments
+  - name: Scheduling and Check-ins
+  - name: Digital Waivers
+  - name: Member App
+  - name: Platform API and Webhooks
+- id: pushpress-pro
+  name: Pro
+  type: paid
+  description: >-
+    Paid per-location plan adding automated billing, class scheduling, member
+    management, reporting, a member-facing app, and significantly lower payment
+    processing rates.
+  entries:
+  - label: Monthly Subscription
+    name: pro_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~159 USD per location per month (verify)
+    userMultiplied: false
+  elements:
+  - name: Automated Billing
+  - name: Class Scheduling
+  - name: Member Management
+  - name: Reporting
+  - name: Member App
+  - name: Lower Processing Rates
+- id: pushpress-max
+  name: Max
+  type: paid
+  description: >-
+    Top published tier for growing gyms, adding more advanced retention,
+    reporting, and automation capabilities on top of Pro.
+  entries:
+  - label: Monthly Subscription
+    name: max_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~229 USD per location per month (verify)
+    userMultiplied: false
+  elements:
+  - name: Everything in Pro
+  - name: Advanced Reporting
+  - name: Retention Automation
+- id: pushpress-addons
+  name: Add-ons (Train, Grow, Branded App)
+  type: paid
+  description: >-
+    Optional product add-ons - such as Train (workout tracking / programming),
+    Grow (marketing and lead management), and a Branded App - each priced
+    separately per month on top of the base subscription.
+  entries:
+  - label: Add-on Subscription
+    name: addon_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: per-add-on monthly fee (see pricing page)
+    userMultiplied: false
+  elements:
+  - name: Train
+  - name: Grow
+  - name: Branded App
+- id: pushpress-payment-processing
+  name: Payment Processing
+  type: usage
+  description: >-
+    Transaction fees charged on client billing processed through PushPress.
+    Rates improve on paid plans.
+  entries:
+  - label: Card Transaction Fee
+    name: card_processing
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~2.89% + $0.30 per card transaction on Pro (verify)
+    userMultiplied: false
+  - label: ACH Transaction Fee
+    name: ach_processing
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~0.79% + $0.30 per ACH transaction on Pro (verify)
+    userMultiplied: false
+  elements:
+  - name: Integrated Billing
+  - name: Card and ACH Processing
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

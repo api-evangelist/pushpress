@@ -1,0 +1,233 @@
+aid: pushpress
+url: https://raw.githubusercontent.com/api-evangelist/pushpress/refs/heads/main/apis.yml
+name: PushPress
+kind: company
+description: PushPress is a gym and fitness business management platform covering
+  membership management, billing and payments, class and appointment scheduling,
+  check-ins, CRM, and a member app. The PushPress Platform API is a REST API
+  (base https://api.pushpress.com/v3) that lets developers read and manage
+  customers (members), check-ins, appointments, classes, events, plan
+  enrollments, membership plans, invitations, and transactional messaging, and
+  subscribe to platform webhooks for real-time events. Requests are
+  authenticated with an API key in the API-KEY header and scoped to a single gym
+  location with a company-id header.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Fitness
+- Gym Management
+- Membership Management
+- Fitness Software
+- Class Scheduling
+- Billing
+- CRM
+- Wellness
+- SaaS
+- Webhooks
+created: '2026-07-12'
+modified: '2026-07-12'
+specificationVersion: '0.19'
+apis:
+- aid: pushpress:pushpress-customers-api
+  name: PushPress Customers API
+  tags:
+  - Customers
+  - Members
+  - CRM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: https://ppe.apidocumentation.com/
+    type: APIReference
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: Create, list, and retrieve gym members and leads (customers), plus
+    their lead-source / marketing attributions. The core CRM surface of the
+    PushPress platform.
+- aid: pushpress:pushpress-checkins-api
+  name: PushPress Check-Ins API
+  tags:
+  - Check-ins
+  - Attendance
+  - Fitness
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: List and retrieve check-ins across class, appointment, event, and
+    open-facility contexts, and get filtered check-in counts. The attendance
+    surface of the platform.
+- aid: pushpress:pushpress-appointments-api
+  name: PushPress Appointments API
+  tags:
+  - Appointments
+  - Scheduling
+  - Booking
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: Retrieve details for scheduled one-on-one and small-group appointments
+    booked through PushPress.
+- aid: pushpress:pushpress-classes-api
+  name: PushPress Classes API
+  tags:
+  - Classes
+  - Class Scheduling
+  - Fitness
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: Retrieve scheduled classes and list or retrieve the class types
+    offered by a gym.
+- aid: pushpress:pushpress-events-api
+  name: PushPress Events API
+  tags:
+  - Events
+  - Scheduling
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: List and retrieve gym events such as workshops, competitions, and
+    socials.
+- aid: pushpress:pushpress-enrollments-plans-api
+  name: PushPress Enrollments and Plans API
+  tags:
+  - Enrollments
+  - Plans
+  - Membership Management
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: List and retrieve customer enrollments in membership plans and
+    retrieve the membership / billing plan definitions they enroll in.
+- aid: pushpress:pushpress-company-api
+  name: PushPress Company API
+  tags:
+  - Company
+  - Account
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: Retrieve details for the gym / business (company) that the API key
+    is scoped to.
+- aid: pushpress:pushpress-invitations-api
+  name: PushPress Invitations API
+  tags:
+  - Invitations
+  - Onboarding
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: Create, list, retrieve, and delete invitations for members or staff
+    to join a gym on PushPress.
+- aid: pushpress:pushpress-messaging-api
+  name: PushPress Messaging API
+  tags:
+  - Messaging
+  - Email
+  - SMS
+  - Push
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: Send transactional email, SMS, push, and in-app / realtime
+    notifications to gym members. Realtime notifications are published to an Ably
+    channel over a REST request, not a PushPress WebSocket.
+- aid: pushpress:pushpress-webhooks-api
+  name: PushPress Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Real-time
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: Create, list, retrieve, update, delete, activate, deactivate, and
+    rotate the signing secret of platform webhooks that deliver real-time events
+    (check-ins, customers, appointments, classes, enrollments, reservations,
+    app installs) to your endpoints.
+- aid: pushpress:pushpress-api-keys-api
+  name: PushPress API Keys API
+  tags:
+  - API Keys
+  - Authentication
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  properties:
+  - url: https://ppe.apidocumentation.com/
+    type: Documentation
+  - url: openapi/pushpress-openapi.yml
+    type: OpenAPI
+  description: Create, list, retrieve, and revoke the API keys used to
+    authenticate against the PushPress Platform API.
+common:
+- type: DomainSecurity
+  url: security/pushpress-domain-security.yml
+- type: Authentication
+  url: authentication/pushpress-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/PushPress
+- type: LinkedIn
+  url: https://www.linkedin.com/company/pushpress
+- type: Website
+  url: https://www.pushpress.com
+- type: Documentation
+  url: https://ppe.apidocumentation.com/
+- type: Plans
+  url: plans/pushpress-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/pushpress-rate-limits.yml
+- type: FinOps
+  url: finops/pushpress-finops.yml
+- url: https://www.pushpress.com/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

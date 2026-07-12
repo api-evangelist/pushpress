@@ -1,0 +1,1361 @@
+{
+  "info": {
+    "name": "PushPress Platform API",
+    "description": "REST API for the PushPress gym/fitness management platform. Base URL https://api.pushpress.com/v3. Authenticated with an API key in the API-KEY header; every request is scoped to a gym location with a company-id header. Paths and methods grounded in the official @pushpress/pushpress SDK and public API reference; schemas modeled by API Evangelist.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "API-KEY",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.pushpress.com/v3",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "companyId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Company",
+      "item": [
+        {
+          "name": "Get company details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/company",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "company"
+              ]
+            },
+            "description": "Retrieves details for the company (gym) the API key is scoped to."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "List customers",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            },
+            "description": "Lists customers (members and leads) for the company, with pagination."
+          }
+        },
+        {
+          "name": "Create a new customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            },
+            "description": "Creates a new customer (member or lead) for the company.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get customer details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/customers/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "customers",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single customer by UUID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attributions",
+      "item": [
+        {
+          "name": "List customer attributions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/attributions/attributions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attributions",
+                "attributions"
+              ]
+            },
+            "description": "Lists lead-source / marketing attributions for customers."
+          }
+        },
+        {
+          "name": "Create a customer attribution",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/attributions/attributions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attributions",
+                "attributions"
+              ]
+            },
+            "description": "Creates a lead-source / marketing attribution for a customer.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get a customer attribution",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/attributions/attributions/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "attributions",
+                "attributions",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single customer attribution by UUID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Checkins",
+      "item": [
+        {
+          "name": "Get check-in count",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/count",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "count"
+              ]
+            },
+            "description": "Returns the number of check-ins matching the supplied filters."
+          }
+        },
+        {
+          "name": "List class check-ins",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/class",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "class"
+              ]
+            },
+            "description": "Lists check-ins associated with scheduled classes."
+          }
+        },
+        {
+          "name": "Get class check-in details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/class/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "class",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single class check-in by UUID."
+          }
+        },
+        {
+          "name": "List appointment check-ins",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/appointment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "appointment"
+              ]
+            },
+            "description": "Lists check-ins associated with appointments."
+          }
+        },
+        {
+          "name": "Get appointment check-in details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/appointment/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "appointment",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single appointment check-in by UUID."
+          }
+        },
+        {
+          "name": "List event check-ins",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/event",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "event"
+              ]
+            },
+            "description": "Lists check-ins associated with events."
+          }
+        },
+        {
+          "name": "Get event check-in details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/event/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "event",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single event check-in by UUID."
+          }
+        },
+        {
+          "name": "List open-facility check-ins",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/open",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "open"
+              ]
+            },
+            "description": "Lists open-gym / open-facility check-ins not tied to a class, appointment, or event."
+          }
+        },
+        {
+          "name": "Get open-facility check-in details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/checkins/open/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "checkins",
+                "open",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single open-facility check-in by UUID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appointments",
+      "item": [
+        {
+          "name": "Get details for an appointment",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/appts/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appts",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single appointment by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Classes",
+      "item": [
+        {
+          "name": "Get details for a class",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/classes/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classes",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single scheduled class by ID."
+          }
+        },
+        {
+          "name": "List class types",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/classes/types",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classes",
+                "types"
+              ]
+            },
+            "description": "Lists the class types offered by the gym."
+          }
+        },
+        {
+          "name": "Get a class type",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/classes/types/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classes",
+                "types",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single class type by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "List events",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events"
+              ]
+            },
+            "description": "Lists gym events, with pagination."
+          }
+        },
+        {
+          "name": "Get details for an event",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/events/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "events",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single event by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Enrollments",
+      "item": [
+        {
+          "name": "List plan enrollments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments"
+              ]
+            },
+            "description": "Lists customer enrollments in membership plans, with pagination."
+          }
+        },
+        {
+          "name": "Get plan enrollment details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single plan enrollment by UUID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plans",
+      "item": [
+        {
+          "name": "Get plan details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/plans/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "plans",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single membership / billing plan by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Invitations",
+      "item": [
+        {
+          "name": "List invitations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invitations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invitations"
+              ]
+            },
+            "description": "Lists outstanding invitations for the company."
+          }
+        },
+        {
+          "name": "Create invitations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invitations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invitations"
+              ]
+            },
+            "description": "Creates one or more invitations for members or staff to join the gym.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get an invitation",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invitations/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invitations",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single invitation by ID."
+          }
+        },
+        {
+          "name": "Delete an invitation",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/invitations/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "invitations",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Deletes (revokes) an invitation."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Messages",
+      "item": [
+        {
+          "name": "Send an email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/messages/email/send",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "messages",
+                "email",
+                "send"
+              ]
+            },
+            "description": "Sends a transactional email to a customer.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Send an SMS",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/messages/sms/send",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "messages",
+                "sms",
+                "send"
+              ]
+            },
+            "description": "Sends a transactional SMS to a customer.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Send a push notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/messages/push/send",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "messages",
+                "push",
+                "send"
+              ]
+            },
+            "description": "Sends a push notification to a customer's member app.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Send a notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/messages/notification/send",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "messages",
+                "notification",
+                "send"
+              ]
+            },
+            "description": "Sends an in-app / realtime notification. First-party apps can publish realtime events to an Ably channel through this endpoint. This is a REST request that hands off to Ably; PushPress does not expose its own WebSocket endpoint to API consumers.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ApiKeys",
+      "item": [
+        {
+          "name": "List API keys",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/keys",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "keys"
+              ]
+            },
+            "description": "Lists the API keys for the company."
+          }
+        },
+        {
+          "name": "Create a new API key",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/keys",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "keys"
+              ]
+            },
+            "description": "Creates a new API key for the company.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get API key",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/keys/{id}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "keys",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single API key by ID."
+          }
+        },
+        {
+          "name": "Revoke an API key",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/keys/{id}/revoke",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "keys",
+                ":id",
+                "revoke"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Revokes an API key so it can no longer be used."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhooks",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks"
+              ]
+            },
+            "description": "Lists platform webhooks for the company, including signing secret and event subscriptions."
+          }
+        },
+        {
+          "name": "Create a webhook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks"
+              ]
+            },
+            "description": "Creates a platform webhook that listens for events on the PushPress platform and delivers them to a target URL.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Get webhook details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Retrieves a single webhook by UUID, including signing secret and event subscriptions."
+          }
+        },
+        {
+          "name": "Update a webhook",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Updates a webhook's target URL or event subscriptions.",
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "Delete a webhook",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{uuid}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                ":uuid"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Deletes a webhook subscription."
+          }
+        },
+        {
+          "name": "Activate a webhook",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{uuid}/activate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                ":uuid",
+                "activate"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Activates a previously deactivated webhook."
+          }
+        },
+        {
+          "name": "Deactivate a webhook",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{uuid}/deactivate",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                ":uuid",
+                "deactivate"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Deactivates a webhook without deleting it."
+          }
+        },
+        {
+          "name": "Rotate a webhook signing secret",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "company-id",
+                "value": "{{companyId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/webhooks/{uuid}/rotate-signing-secret",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "webhooks",
+                ":uuid",
+                "rotate-signing-secret"
+              ],
+              "variable": [
+                {
+                  "key": "uuid",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Rotates the signing secret used to verify webhook payload signatures."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+generated: '2026-07-12'
+method: derived
+source: openapi/pushpress-openapi.yml
+summary:
+  types:
+  - apiKey
+schemes:
+- name: api_key
+  type: apiKey
+  in: header
+  parameterName: API-KEY
+  description: >-
+    API key issued in the PushPress developer portal (developer.pushpress.com),
+    passed in the `API-KEY` request header. Keys can also be created, listed,
+    retrieved, and revoked programmatically via the /keys endpoints. Every
+    request is additionally scoped to a single gym location with a `company-id`
+    header.
+  sources:
+  - openapi/pushpress-openapi.yml
+  - https://github.com/PushPress/pushpress-ts

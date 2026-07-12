@@ -1,0 +1,95 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: PushPress
+providerId: pushpress
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Fitness
+- Gym Management
+- SaaS
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of PushPress spend. PushPress is a per-location SaaS: cost is
+  driven primarily by a fixed monthly subscription per gym location (Free, Pro,
+  or Max), plus optional per-product add-ons (Train, Grow, Branded App), plus
+  usage-based payment processing fees on client billing run through the
+  platform. The Platform API and webhooks are included in the subscription and
+  are not separately metered, so API adoption does not create a distinct
+  line-item cost - the cost model is seat/location subscription and transaction
+  processing.
+notes: >-
+  Per-unit figures are not reconciled here; verify subscription tiers, add-on
+  pricing, and processing rates on the PushPress pricing page. For multi-location
+  operators the dominant cost lever is the number of locations times plan tier,
+  followed by payment processing volume.
+sources:
+- https://www.pushpress.com/pricing
+- https://www.pushpress.com/blog/what-does-gym-software-really-cost
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: PushPress
+serviceCategory: Business Management Software
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: PushPress
+  ServiceCategory: Business Management Software
+  ProviderName: PushPress
+  PublisherName: PushPress
+  InvoiceIssuerName: PushPress
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: location_subscription
+  description: Fixed monthly subscription per gym location (Free / Pro / Max tier).
+  unit: locations
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+  - plan
+- name: addon_subscription
+  description: Monthly fee per enabled product add-on (Train, Grow, Branded App).
+  unit: addons
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+  - addon
+- name: payment_processing
+  description: Per-transaction card and ACH processing fees on client billing.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - location
+  - method
+principles:
+- name: Visibility
+  description: Track subscription and add-on charges per location and processing fees per transaction method.
+- name: Allocation
+  description: Map each location's subscription, add-ons, and processing volume to the responsible gym / franchise cost center.
+- name: Optimization
+  description: Right-size each location's plan tier, disable unused add-ons, and steer client billing toward lower-cost ACH where appropriate.
+- name: Accountability
+  description: Review monthly per-location subscription plus processing spend against membership revenue.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

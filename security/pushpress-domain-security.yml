@@ -1,0 +1,33 @@
+generated: '2026-07-12'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + API + docs hosts
+hosts:
+- host: www.pushpress.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec  3 23:59:59 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+  server: awselb/2.0
+- host: api.pushpress.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  6 00:27:39 2026 GMT
+  hsts: false
+  server: nginx/1.25.5
+  note: Root path returns 404; API is served under /v3 with API-KEY and company-id headers.
+- host: developer.pushpress.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep  6 00:27:39 2026 GMT
+  hsts: false
+  server: nginx/1.25.5
+  note: Redirects to /dashboard/login (developer portal).
+domains:
+- domain: pushpress.com
+  dnssec: false
+  caa: []
+  spf: true
+  spf_record: 'v=spf1 include:_spf.google.com include:amazonses.com include:spf.mandrillapp.com include:sendgrid.net include:1711513.spf10.hubspotemail.net ~all'
+  dmarc: true
+  dmarc_policy: reject
