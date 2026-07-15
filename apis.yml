@@ -208,6 +208,8 @@ apis:
   description: Create, list, retrieve, and revoke the API keys used to
     authenticate against the PushPress Platform API.
 common:
+- type: AgenticAccess
+  url: agentic-access/pushpress-agentic-access.yml
 - type: DomainSecurity
   url: security/pushpress-domain-security.yml
 - type: Authentication
