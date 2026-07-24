@@ -1,0 +1,214 @@
+openapi: 3.0.3
+info:
+  title: PushPress Platform ApiKeys Messages API
+  description: 'The PushPress Platform API lets developers integrate with the PushPress gym and fitness business management platform. It exposes gym members (customers), check-ins (class, appointment, event, and open-facility), appointments, classes and class types, events, plan enrollments, membership plans, company details, staff/member invitations, transactional messaging (email, SMS, push, notifications), API key management, and platform webhook subscriptions for real-time events.
+
+
+    All requests are REST over HTTPS. Every request is authenticated with an API key passed in the `API-KEY` header, and is scoped to a single gym location (company) by the `company-id` header.
+
+
+    Endpoint PATHS and HTTP METHODS in this document are grounded in PushPress''s live public API reference and the official Speakeasy-generated PushPress SDK (`@pushpress/pushpress`, production server `https://api.pushpress.com/v3`). Request and response SCHEMAS are modeled by API Evangelist to a reasonable fidelity and should be verified against the authoritative PushPress OpenAPI before code generation.'
+  version: '3.0'
+  contact:
+    name: PushPress
+    url: https://www.pushpress.com
+  x-grounding:
+    pathsAndMethods: confirmed
+    schemas: modeled
+    sources:
+    - https://ppe.apidocumentation.com/
+    - https://github.com/PushPress/pushpress-ts
+    - https://www.npmjs.com/package/@pushpress/pushpress
+servers:
+- url: https://api.pushpress.com/v3
+  description: Production
+- url: https://api.pushpressstage.com/v3
+  description: Staging
+- url: https://api.pushpressdev.com/v3
+  description: Development
+security:
+- api_key: []
+tags:
+- name: Messages
+  description: Transactional email, SMS, push, and in-app notifications.
+paths:
+  /messages/email/send:
+    post:
+      operationId: sendEmail
+      tags:
+      - Messages
+      summary: Send an email
+      description: Sends a transactional email to a customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailMessageInput'
+      responses:
+        '200':
+          description: Send result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /messages/sms/send:
+    post:
+      operationId: sendSms
+      tags:
+      - Messages
+      summary: Send an SMS
+      description: Sends a transactional SMS to a customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmsMessageInput'
+      responses:
+        '200':
+          description: Send result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /messages/push/send:
+    post:
+      operationId: sendPush
+      tags:
+      - Messages
+      summary: Send a push notification
+      description: Sends a push notification to a customer's member app.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PushMessageInput'
+      responses:
+        '200':
+          description: Send result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /messages/notification/send:
+    post:
+      operationId: sendNotification
+      tags:
+      - Messages
+      summary: Send a notification
+      description: Sends an in-app / realtime notification. First-party apps can publish realtime events to an Ably channel through this endpoint. This is a REST request that hands off to Ably; PushPress does not expose its own WebSocket endpoint to API consumers.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationInput'
+      responses:
+        '200':
+          description: Send result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResult'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    EmailMessageInput:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          type: string
+          description: Customer UUID to email.
+        subject:
+          type: string
+        body:
+          type: string
+    MessageResult:
+      type: object
+      properties:
+        success:
+          type: boolean
+        id:
+          type: string
+    SmsMessageInput:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          type: string
+          description: Customer UUID to text.
+        body:
+          type: string
+    PushMessageInput:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          type: string
+          description: Customer UUID to push to.
+        title:
+          type: string
+        body:
+          type: string
+    NotificationInput:
+      type: object
+      properties:
+        channel:
+          type: string
+          description: Ably channel to publish to.
+        event:
+          type: string
+          description: Event name to publish.
+        data:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: API-KEY
+      description: API key issued in the PushPress developer portal, passed in the `API-KEY` request header. Requests are also scoped to a single gym location with a `company-id` header.

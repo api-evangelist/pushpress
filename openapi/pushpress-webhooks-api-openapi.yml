@@ -1,0 +1,300 @@
+openapi: 3.0.3
+info:
+  title: PushPress Platform ApiKeys Webhooks API
+  description: 'The PushPress Platform API lets developers integrate with the PushPress gym and fitness business management platform. It exposes gym members (customers), check-ins (class, appointment, event, and open-facility), appointments, classes and class types, events, plan enrollments, membership plans, company details, staff/member invitations, transactional messaging (email, SMS, push, notifications), API key management, and platform webhook subscriptions for real-time events.
+
+
+    All requests are REST over HTTPS. Every request is authenticated with an API key passed in the `API-KEY` header, and is scoped to a single gym location (company) by the `company-id` header.
+
+
+    Endpoint PATHS and HTTP METHODS in this document are grounded in PushPress''s live public API reference and the official Speakeasy-generated PushPress SDK (`@pushpress/pushpress`, production server `https://api.pushpress.com/v3`). Request and response SCHEMAS are modeled by API Evangelist to a reasonable fidelity and should be verified against the authoritative PushPress OpenAPI before code generation.'
+  version: '3.0'
+  contact:
+    name: PushPress
+    url: https://www.pushpress.com
+  x-grounding:
+    pathsAndMethods: confirmed
+    schemas: modeled
+    sources:
+    - https://ppe.apidocumentation.com/
+    - https://github.com/PushPress/pushpress-ts
+    - https://www.npmjs.com/package/@pushpress/pushpress
+servers:
+- url: https://api.pushpress.com/v3
+  description: Production
+- url: https://api.pushpressstage.com/v3
+  description: Staging
+- url: https://api.pushpressdev.com/v3
+  description: Development
+security:
+- api_key: []
+tags:
+- name: Webhooks
+  description: Platform webhook subscriptions for real-time events.
+paths:
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      tags:
+      - Webhooks
+      summary: List webhooks
+      description: Lists platform webhooks for the company, including signing secret and event subscriptions.
+      responses:
+        '200':
+          description: A list of webhooks.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createWebhook
+      tags:
+      - Webhooks
+      summary: Create a webhook
+      description: Creates a platform webhook that listens for events on the PushPress platform and delivers them to a target URL.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '200':
+          description: The created webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /webhooks/{uuid}:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    get:
+      operationId: getWebhook
+      tags:
+      - Webhooks
+      summary: Get webhook details
+      description: Retrieves a single webhook by UUID, including signing secret and event subscriptions.
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateWebhook
+      tags:
+      - Webhooks
+      summary: Update a webhook
+      description: Updates a webhook's target URL or event subscriptions.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '200':
+          description: The updated webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteWebhook
+      tags:
+      - Webhooks
+      summary: Delete a webhook
+      description: Deletes a webhook subscription.
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /webhooks/{uuid}/activate:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    patch:
+      operationId: activateWebhook
+      tags:
+      - Webhooks
+      summary: Activate a webhook
+      description: Activates a previously deactivated webhook.
+      responses:
+        '200':
+          description: The activated webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /webhooks/{uuid}/deactivate:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    patch:
+      operationId: deactivateWebhook
+      tags:
+      - Webhooks
+      summary: Deactivate a webhook
+      description: Deactivates a webhook without deleting it.
+      responses:
+        '200':
+          description: The deactivated webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /webhooks/{uuid}/rotate-signing-secret:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    post:
+      operationId: rotateWebhookSecret
+      tags:
+      - Webhooks
+      summary: Rotate a webhook signing secret
+      description: Rotates the signing secret used to verify webhook payload signatures.
+      responses:
+        '200':
+          description: The webhook with its new signing secret.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    Uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema:
+        type: string
+  schemas:
+    DeleteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+    Webhook:
+      allOf:
+      - $ref: '#/components/schemas/WebhookInput'
+      - type: object
+        properties:
+          uuid:
+            type: string
+          signingSecret:
+            type: string
+          active:
+            type: boolean
+          createdAt:
+            type: integer
+            format: int64
+    WebhookInput:
+      type: object
+      required:
+      - url
+      - events
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Target URL that receives event payloads.
+        events:
+          type: array
+          description: Event types to subscribe to.
+          items:
+            type: string
+            enum:
+            - checkin.created
+            - checkin.updated
+            - checkin.deleted
+            - customer.created
+            - customer.deleted
+            - customer.statusChanged
+            - customer.detailsChanged
+            - appointment.scheduled
+            - appointment.rescheduled
+            - appointment.canceled
+            - appointment.noshowed
+            - class.canceled
+            - enrollment.created
+            - enrollment.deleted
+            - enrollment.statusChanged
+            - reservation.created
+            - reservation.waitlisted
+            - reservation.canceled
+            - app.installed
+            - app.uninstalled
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: API-KEY
+      description: API key issued in the PushPress developer portal, passed in the `API-KEY` request header. Requests are also scoped to a single gym location with a `company-id` header.

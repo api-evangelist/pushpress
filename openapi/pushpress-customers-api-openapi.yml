@@ -1,0 +1,206 @@
+openapi: 3.0.3
+info:
+  title: PushPress Platform ApiKeys Customers API
+  description: 'The PushPress Platform API lets developers integrate with the PushPress gym and fitness business management platform. It exposes gym members (customers), check-ins (class, appointment, event, and open-facility), appointments, classes and class types, events, plan enrollments, membership plans, company details, staff/member invitations, transactional messaging (email, SMS, push, notifications), API key management, and platform webhook subscriptions for real-time events.
+
+
+    All requests are REST over HTTPS. Every request is authenticated with an API key passed in the `API-KEY` header, and is scoped to a single gym location (company) by the `company-id` header.
+
+
+    Endpoint PATHS and HTTP METHODS in this document are grounded in PushPress''s live public API reference and the official Speakeasy-generated PushPress SDK (`@pushpress/pushpress`, production server `https://api.pushpress.com/v3`). Request and response SCHEMAS are modeled by API Evangelist to a reasonable fidelity and should be verified against the authoritative PushPress OpenAPI before code generation.'
+  version: '3.0'
+  contact:
+    name: PushPress
+    url: https://www.pushpress.com
+  x-grounding:
+    pathsAndMethods: confirmed
+    schemas: modeled
+    sources:
+    - https://ppe.apidocumentation.com/
+    - https://github.com/PushPress/pushpress-ts
+    - https://www.npmjs.com/package/@pushpress/pushpress
+servers:
+- url: https://api.pushpress.com/v3
+  description: Production
+- url: https://api.pushpressstage.com/v3
+  description: Staging
+- url: https://api.pushpressdev.com/v3
+  description: Development
+security:
+- api_key: []
+tags:
+- name: Customers
+  description: Gym members and leads (customers).
+paths:
+  /customers:
+    get:
+      operationId: listCustomers
+      tags:
+      - Customers
+      summary: List customers
+      description: Lists customers (members and leads) for the company, with pagination.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: A page of customers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomer
+      tags:
+      - Customers
+      summary: Create a new customer
+      description: Creates a new customer (member or lead) for the company.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+      responses:
+        '200':
+          description: The created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /customers/{uuid}:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    get:
+      operationId: getCustomer
+      tags:
+      - Customers
+      summary: Get customer details
+      description: Retrieves a single customer by UUID.
+      responses:
+        '200':
+          description: The requested customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    Uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        default: 20
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        default: 0
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Customer:
+      allOf:
+      - $ref: '#/components/schemas/CustomerInput'
+      - type: object
+        properties:
+          id:
+            type: string
+          uuid:
+            type: string
+          status:
+            type: string
+          createdAt:
+            type: integer
+            format: int64
+    CustomerInput:
+      type: object
+      required:
+      - firstName
+      - lastName
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        role:
+          type: string
+          description: Customer role, e.g. member, lead, staff.
+        gender:
+          type: string
+        birthday:
+          type: string
+          format: date
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    CustomerList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        total:
+          type: integer
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: API-KEY
+      description: API key issued in the PushPress developer portal, passed in the `API-KEY` request header. Requests are also scoped to a single gym location with a `company-id` header.

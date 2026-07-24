@@ -1,0 +1,322 @@
+openapi: 3.0.3
+info:
+  title: PushPress Platform ApiKeys Checkins API
+  description: 'The PushPress Platform API lets developers integrate with the PushPress gym and fitness business management platform. It exposes gym members (customers), check-ins (class, appointment, event, and open-facility), appointments, classes and class types, events, plan enrollments, membership plans, company details, staff/member invitations, transactional messaging (email, SMS, push, notifications), API key management, and platform webhook subscriptions for real-time events.
+
+
+    All requests are REST over HTTPS. Every request is authenticated with an API key passed in the `API-KEY` header, and is scoped to a single gym location (company) by the `company-id` header.
+
+
+    Endpoint PATHS and HTTP METHODS in this document are grounded in PushPress''s live public API reference and the official Speakeasy-generated PushPress SDK (`@pushpress/pushpress`, production server `https://api.pushpress.com/v3`). Request and response SCHEMAS are modeled by API Evangelist to a reasonable fidelity and should be verified against the authoritative PushPress OpenAPI before code generation.'
+  version: '3.0'
+  contact:
+    name: PushPress
+    url: https://www.pushpress.com
+  x-grounding:
+    pathsAndMethods: confirmed
+    schemas: modeled
+    sources:
+    - https://ppe.apidocumentation.com/
+    - https://github.com/PushPress/pushpress-ts
+    - https://www.npmjs.com/package/@pushpress/pushpress
+servers:
+- url: https://api.pushpress.com/v3
+  description: Production
+- url: https://api.pushpressstage.com/v3
+  description: Staging
+- url: https://api.pushpressdev.com/v3
+  description: Development
+security:
+- api_key: []
+tags:
+- name: Checkins
+  description: Class, appointment, event, and open-facility check-ins.
+paths:
+  /checkins/count:
+    get:
+      operationId: getCheckinCount
+      tags:
+      - Checkins
+      summary: Get check-in count
+      description: Returns the number of check-ins matching the supplied filters.
+      parameters:
+      - name: since
+        in: query
+        required: false
+        description: Unix timestamp (ms) lower bound for the count window.
+        schema:
+          type: integer
+          format: int64
+      - name: until
+        in: query
+        required: false
+        description: Unix timestamp (ms) upper bound for the count window.
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: The check-in count.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /checkins/class:
+    get:
+      operationId: listClassCheckins
+      tags:
+      - Checkins
+      summary: List class check-ins
+      description: Lists check-ins associated with scheduled classes.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: A page of class check-ins.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckinList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /checkins/class/{uuid}:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    get:
+      operationId: getClassCheckin
+      tags:
+      - Checkins
+      summary: Get class check-in details
+      description: Retrieves a single class check-in by UUID.
+      responses:
+        '200':
+          description: The requested check-in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkin'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /checkins/appointment:
+    get:
+      operationId: listAppointmentCheckins
+      tags:
+      - Checkins
+      summary: List appointment check-ins
+      description: Lists check-ins associated with appointments.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: A page of appointment check-ins.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckinList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /checkins/appointment/{uuid}:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    get:
+      operationId: getAppointmentCheckin
+      tags:
+      - Checkins
+      summary: Get appointment check-in details
+      description: Retrieves a single appointment check-in by UUID.
+      responses:
+        '200':
+          description: The requested check-in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkin'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /checkins/event:
+    get:
+      operationId: listEventCheckins
+      tags:
+      - Checkins
+      summary: List event check-ins
+      description: Lists check-ins associated with events.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: A page of event check-ins.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckinList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /checkins/event/{uuid}:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    get:
+      operationId: getEventCheckin
+      tags:
+      - Checkins
+      summary: Get event check-in details
+      description: Retrieves a single event check-in by UUID.
+      responses:
+        '200':
+          description: The requested check-in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkin'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /checkins/open:
+    get:
+      operationId: listOpenCheckins
+      tags:
+      - Checkins
+      summary: List open-facility check-ins
+      description: Lists open-gym / open-facility check-ins not tied to a class, appointment, or event.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: A page of open check-ins.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckinList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /checkins/open/{uuid}:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    get:
+      operationId: getOpenCheckin
+      tags:
+      - Checkins
+      summary: Get open-facility check-in details
+      description: Retrieves a single open-facility check-in by UUID.
+      responses:
+        '200':
+          description: The requested check-in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Checkin'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    Uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        default: 20
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        default: 0
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Checkin:
+      type: object
+      properties:
+        id:
+          type: string
+        uuid:
+          type: string
+        customer:
+          type: string
+          description: Customer UUID that checked in.
+        company:
+          type: string
+        type:
+          type: string
+          enum:
+          - class
+          - appointment
+          - event
+          - open
+        classId:
+          type: string
+        typeId:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+    CheckinList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Checkin'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        total:
+          type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: API-KEY
+      description: API key issued in the PushPress developer portal, passed in the `API-KEY` request header. Requests are also scoped to a single gym location with a `company-id` header.

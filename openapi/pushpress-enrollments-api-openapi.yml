@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: PushPress Platform ApiKeys Enrollments API
+  description: 'The PushPress Platform API lets developers integrate with the PushPress gym and fitness business management platform. It exposes gym members (customers), check-ins (class, appointment, event, and open-facility), appointments, classes and class types, events, plan enrollments, membership plans, company details, staff/member invitations, transactional messaging (email, SMS, push, notifications), API key management, and platform webhook subscriptions for real-time events.
+
+
+    All requests are REST over HTTPS. Every request is authenticated with an API key passed in the `API-KEY` header, and is scoped to a single gym location (company) by the `company-id` header.
+
+
+    Endpoint PATHS and HTTP METHODS in this document are grounded in PushPress''s live public API reference and the official Speakeasy-generated PushPress SDK (`@pushpress/pushpress`, production server `https://api.pushpress.com/v3`). Request and response SCHEMAS are modeled by API Evangelist to a reasonable fidelity and should be verified against the authoritative PushPress OpenAPI before code generation.'
+  version: '3.0'
+  contact:
+    name: PushPress
+    url: https://www.pushpress.com
+  x-grounding:
+    pathsAndMethods: confirmed
+    schemas: modeled
+    sources:
+    - https://ppe.apidocumentation.com/
+    - https://github.com/PushPress/pushpress-ts
+    - https://www.npmjs.com/package/@pushpress/pushpress
+servers:
+- url: https://api.pushpress.com/v3
+  description: Production
+- url: https://api.pushpressstage.com/v3
+  description: Staging
+- url: https://api.pushpressdev.com/v3
+  description: Development
+security:
+- api_key: []
+tags:
+- name: Enrollments
+  description: Customer enrollments in membership plans.
+paths:
+  /enrollments:
+    get:
+      operationId: listEnrollments
+      tags:
+      - Enrollments
+      summary: List plan enrollments
+      description: Lists customer enrollments in membership plans, with pagination.
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      responses:
+        '200':
+          description: A page of enrollments.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Enrollment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /enrollments/{uuid}:
+    parameters:
+    - $ref: '#/components/parameters/Uuid'
+    get:
+      operationId: getEnrollment
+      tags:
+      - Enrollments
+      summary: Get plan enrollment details
+      description: Retrieves a single plan enrollment by UUID.
+      responses:
+        '200':
+          description: The requested enrollment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enrollment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    Uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema:
+        type: string
+    Offset:
+      name: offset
+      in: query
+      required: false
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        default: 20
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Enrollment:
+      type: object
+      properties:
+        uuid:
+          type: string
+        customer:
+          type: string
+        plan:
+          type: string
+          description: Plan ID the customer is enrolled in.
+        status:
+          type: string
+          enum:
+          - active
+          - paused
+          - canceled
+          - expired
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: API-KEY
+      description: API key issued in the PushPress developer portal, passed in the `API-KEY` request header. Requests are also scoped to a single gym location with a `company-id` header.
