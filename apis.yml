@@ -11,7 +11,20 @@ description: PushPress is a gym and fitness business management platform coverin
   subscribe to platform webhooks for real-time events. Requests are
   authenticated with an API key in the API-KEY header and scoped to a single gym
   location with a company-id header.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pushpress.png
 tags:
 - Fitness
 - Gym Management
@@ -27,186 +40,188 @@ created: '2026-07-12'
 modified: '2026-07-12'
 specificationVersion: '0.19'
 apis:
-- aid: pushpress:pushpress-customers-api
-  name: PushPress Customers API
-  tags:
-  - Customers
-  - Members
-  - CRM
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: pushpress:pushpress-apikeys-api
+  name: PushPress ApiKeys API
+  description: Programmatic API key management.
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
-  properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: https://ppe.apidocumentation.com/
-    type: APIReference
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: Create, list, and retrieve gym members and leads (customers), plus
-    their lead-source / marketing attributions. The core CRM surface of the
-    PushPress platform.
-- aid: pushpress:pushpress-checkins-api
-  name: PushPress Check-Ins API
   tags:
-  - Check-ins
-  - Attendance
-  - Fitness
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://ppe.apidocumentation.com/
-  baseURL: https://api.pushpress.com/v3
+  - ApiKeys
   properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: List and retrieve check-ins across class, appointment, event, and
-    open-facility contexts, and get filtered check-in counts. The attendance
-    surface of the platform.
+  - type: OpenAPI
+    url: openapi/pushpress-apikeys-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
 - aid: pushpress:pushpress-appointments-api
   name: PushPress Appointments API
+  description: Scheduled one-on-one or small-group appointments.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
   tags:
   - Appointments
-  - Scheduling
-  - Booking
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-appointments-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-attributions-api
+  name: PushPress Attributions API
+  description: Marketing / lead-source attributions for a customer.
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
+  tags:
+  - Attributions
   properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: Retrieve details for scheduled one-on-one and small-group appointments
-    booked through PushPress.
+  - type: OpenAPI
+    url: openapi/pushpress-attributions-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-checkins-api
+  name: PushPress Checkins API
+  description: Class, appointment, event, and open-facility check-ins.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  tags:
+  - Checkins
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-checkins-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
 - aid: pushpress:pushpress-classes-api
   name: PushPress Classes API
+  description: Scheduled classes and class types.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
   tags:
   - Classes
-  - Class Scheduling
-  - Fitness
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://ppe.apidocumentation.com/
-  baseURL: https://api.pushpress.com/v3
   properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: Retrieve scheduled classes and list or retrieve the class types
-    offered by a gym.
-- aid: pushpress:pushpress-events-api
-  name: PushPress Events API
-  tags:
-  - Events
-  - Scheduling
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://ppe.apidocumentation.com/
-  baseURL: https://api.pushpress.com/v3
-  properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: List and retrieve gym events such as workshops, competitions, and
-    socials.
-- aid: pushpress:pushpress-enrollments-plans-api
-  name: PushPress Enrollments and Plans API
-  tags:
-  - Enrollments
-  - Plans
-  - Membership Management
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://ppe.apidocumentation.com/
-  baseURL: https://api.pushpress.com/v3
-  properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: List and retrieve customer enrollments in membership plans and
-    retrieve the membership / billing plan definitions they enroll in.
+  - type: OpenAPI
+    url: openapi/pushpress-classes-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
 - aid: pushpress:pushpress-company-api
   name: PushPress Company API
+  description: The gym / business (company) the API key is scoped to.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
   tags:
   - Company
-  - Account
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-company-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-customers-api
+  name: PushPress Customers API
+  description: Gym members and leads (customers).
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
+  tags:
+  - Customers
   properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: Retrieve details for the gym / business (company) that the API key
-    is scoped to.
+  - type: OpenAPI
+    url: openapi/pushpress-customers-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-enrollments-api
+  name: PushPress Enrollments API
+  description: Customer enrollments in membership plans.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  tags:
+  - Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-enrollments-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-events-api
+  name: PushPress Events API
+  description: Gym events (workshops, competitions, socials).
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-events-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
 - aid: pushpress:pushpress-invitations-api
   name: PushPress Invitations API
+  description: Invitations for members or staff to join the gym on PushPress.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
   tags:
   - Invitations
-  - Onboarding
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-invitations-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-messages-api
+  name: PushPress Messages API
+  description: Transactional email, SMS, push, and in-app notifications.
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
-  properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: Create, list, retrieve, and delete invitations for members or staff
-    to join a gym on PushPress.
-- aid: pushpress:pushpress-messaging-api
-  name: PushPress Messaging API
   tags:
-  - Messaging
-  - Email
-  - SMS
-  - Push
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-messages-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-plans-api
+  name: PushPress Plans API
+  description: Membership and billing plans offered by the gym.
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
+  tags:
+  - Plans
   properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: Send transactional email, SMS, push, and in-app / realtime
-    notifications to gym members. Realtime notifications are published to an Ably
-    channel over a REST request, not a PushPress WebSocket.
+  - type: OpenAPI
+    url: openapi/pushpress-plans-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
 - aid: pushpress:pushpress-webhooks-api
   name: PushPress Webhooks API
+  description: Platform webhook subscriptions for real-time events.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
   tags:
   - Webhooks
-  - Events
-  - Real-time
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://ppe.apidocumentation.com/
-  baseURL: https://api.pushpress.com/v3
   properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: Create, list, retrieve, update, delete, activate, deactivate, and
-    rotate the signing secret of platform webhooks that deliver real-time events
-    (check-ins, customers, appointments, classes, enrollments, reservations,
-    app installs) to your endpoints.
-- aid: pushpress:pushpress-api-keys-api
-  name: PushPress API Keys API
-  tags:
-  - API Keys
-  - Authentication
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://ppe.apidocumentation.com/
-  baseURL: https://api.pushpress.com/v3
-  properties:
-  - url: https://ppe.apidocumentation.com/
-    type: Documentation
-  - url: openapi/pushpress-openapi.yml
-    type: OpenAPI
-  description: Create, list, retrieve, and revoke the API keys used to
-    authenticate against the PushPress Platform API.
+  - type: OpenAPI
+    url: openapi/pushpress-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
 common:
 - type: AgenticAccess
   url: agentic-access/pushpress-agentic-access.yml
