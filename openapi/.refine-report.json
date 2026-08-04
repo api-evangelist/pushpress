@@ -1,0 +1,38 @@
+{
+  "provider": "pushpress",
+  "sources": [
+    "pushpress-apikeys-api-openapi.yml",
+    "pushpress-appointments-api-openapi.yml",
+    "pushpress-attributions-api-openapi.yml",
+    "pushpress-checkins-api-openapi.yml",
+    "pushpress-classes-api-openapi.yml",
+    "pushpress-company-api-openapi.yml",
+    "pushpress-customers-api-openapi.yml",
+    "pushpress-enrollments-api-openapi.yml",
+    "pushpress-events-api-openapi.yml",
+    "pushpress-invitations-api-openapi.yml",
+    "pushpress-messages-api-openapi.yml",
+    "pushpress-plans-api-openapi.yml",
+    "pushpress-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "pushpress-apikeys-api-openapi.yml",
+    "pushpress-appointments-api-openapi.yml",
+    "pushpress-attributions-api-openapi.yml",
+    "pushpress-checkins-api-openapi.yml",
+    "pushpress-classes-api-openapi.yml",
+    "pushpress-company-api-openapi.yml",
+    "pushpress-customers-api-openapi.yml",
+    "pushpress-enrollments-api-openapi.yml",
+    "pushpress-events-api-openapi.yml",
+    "pushpress-invitations-api-openapi.yml",
+    "pushpress-messages-api-openapi.yml",
+    "pushpress-plans-api-openapi.yml",
+    "pushpress-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
