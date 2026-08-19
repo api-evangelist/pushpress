@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PushPress Platform ApiKeys Attributions API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attributions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List customer attributions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/attributions/attributions"
+          },
+          "docs": "Lists lead-source / marketing attributions for customers."
+        },
+        {
+          "info": {
+            "name": "Create a customer attribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/attributions/attributions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a lead-source / marketing attribution for a customer."
+        },
+        {
+          "info": {
+            "name": "Get a customer attribution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/attributions/attributions/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single customer attribution by UUID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

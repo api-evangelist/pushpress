@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PushPress Platform ApiKeys Appointments API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Appointments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get details for an appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/appts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single appointment by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

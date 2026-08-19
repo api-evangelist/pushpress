@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PushPress Platform ApiKeys Messages API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Send an email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/messages/email/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a transactional email to a customer."
+        },
+        {
+          "info": {
+            "name": "Send an SMS",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/messages/sms/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a transactional SMS to a customer."
+        },
+        {
+          "info": {
+            "name": "Send a push notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/messages/push/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a push notification to a customer's member app."
+        },
+        {
+          "info": {
+            "name": "Send a notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/messages/notification/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends an in-app / realtime notification. First-party apps can publish realtime events to an Ably channel through this endpoint. This is a REST request that hands off to Ably; PushPress does not expose its own WebSocket endpoint to API consumers."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,70 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PushPress Platform ApiKeys Events API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/events",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              }
+            ]
+          },
+          "docs": "Lists gym events, with pagination."
+        },
+        {
+          "info": {
+            "name": "Get details for an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single event by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

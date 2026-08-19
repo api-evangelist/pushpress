@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PushPress Platform ApiKeys API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ApiKeys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List API keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/keys"
+          },
+          "docs": "Lists the API keys for the company."
+        },
+        {
+          "info": {
+            "name": "Create a new API key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pushpress.com/v3/keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new API key for the company."
+        },
+        {
+          "info": {
+            "name": "Get API key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single API key by ID."
+        },
+        {
+          "info": {
+            "name": "Revoke an API key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.pushpress.com/v3/keys/:id/revoke",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the resource."
+              }
+            ]
+          },
+          "docs": "Revokes an API key so it can no longer be used."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

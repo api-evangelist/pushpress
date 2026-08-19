@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PushPress Platform ApiKeys Classes API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "API-KEY",
+      "value": "{{API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Classes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get details for a class",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/classes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single scheduled class by ID."
+        },
+        {
+          "info": {
+            "name": "List class types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/classes/types"
+          },
+          "docs": "Lists the class types offered by the gym."
+        },
+        {
+          "info": {
+            "name": "Get a class type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pushpress.com/v3/classes/types/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieves a single class type by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
