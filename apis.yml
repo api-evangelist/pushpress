@@ -34,6 +34,17 @@ tags:
 - Billing
 - CRM
 - Wellness
+- Software-as-a-Service
+- Webhook
+tags_raw:
+- Fitness
+- Gym Management
+- Membership Management
+- Fitness Software
+- Class Scheduling
+- Billing
+- CRM
+- Wellness
 - SaaS
 - Webhooks
 created: '2026-07-12'
@@ -46,6 +57,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - APIKeys
+  tags_raw:
   - ApiKeys
   properties:
   - type: OpenAPI
@@ -88,6 +101,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - Check-ins
+  tags_raw:
   - Checkins
   properties:
   - type: OpenAPI
@@ -158,6 +173,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -186,6 +203,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -214,6 +233,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
