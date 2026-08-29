@@ -11,6 +11,18 @@ description: PushPress is a gym and fitness business management platform coverin
   subscribe to platform webhooks for real-time events. Requests are
   authenticated with an API key in the API-KEY header and scoped to a single gym
   location with a company-id header.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
