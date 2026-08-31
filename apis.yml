@@ -69,7 +69,7 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
-  - APIKeys
+  - ApiKeys
   tags_raw:
   - ApiKeys
   properties:
@@ -113,7 +113,7 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
-  - Check-ins
+  - Checkins
   tags_raw:
   - Checkins
   properties:
