@@ -64,22 +64,6 @@ created: '2026-07-12'
 modified: '2026-07-12'
 specificationVersion: '0.23'
 apis:
-- aid: pushpress:pushpress-apikeys-api
-  name: PushPress ApiKeys API
-  description: Programmatic API key management.
-  humanURL: https://ppe.apidocumentation.com/
-  baseURL: https://api.pushpress.com/v3
-  tags:
-  - APIKeys
-  tags_raw:
-  - ApiKeys
-  properties:
-  - type: OpenAPI
-    url: openapi/pushpress-apikeys-api-openapi.yml
-  - type: Documentation
-    url: https://ppe.apidocumentation.com/
-  - type: APIReference
-    url: https://ppe.apidocumentation.com/
 - aid: pushpress:pushpress-appointments-api
   name: PushPress Appointments API
   description: Scheduled one-on-one or small-group appointments.
@@ -106,22 +90,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/pushpress-attributions-api-openapi.yml
-  - type: Documentation
-    url: https://ppe.apidocumentation.com/
-  - type: APIReference
-    url: https://ppe.apidocumentation.com/
-- aid: pushpress:pushpress-checkins-api
-  name: PushPress Checkins API
-  description: Class, appointment, event, and open-facility check-ins.
-  humanURL: https://ppe.apidocumentation.com/
-  baseURL: https://api.pushpress.com/v3
-  tags:
-  - Check-ins
-  tags_raw:
-  - Checkins
-  properties:
-  - type: OpenAPI
-    url: openapi/pushpress-checkins-api-openapi.yml
   - type: Documentation
     url: https://ppe.apidocumentation.com/
   - type: APIReference
@@ -254,6 +222,34 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/pushpress-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-api-keys-api
+  name: PushPress API Keys API
+  description: Programmatic API key management.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  tags:
+  - API Keys
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-api-keys-api-openapi.yml
+  - type: Documentation
+    url: https://ppe.apidocumentation.com/
+  - type: APIReference
+    url: https://ppe.apidocumentation.com/
+- aid: pushpress:pushpress-check-ins-api
+  name: PushPress Check Ins API
+  description: Class, appointment, event, and open-facility check-ins.
+  humanURL: https://ppe.apidocumentation.com/
+  baseURL: https://api.pushpress.com/v3
+  tags:
+  - Check Ins
+  properties:
+  - type: OpenAPI
+    url: openapi/pushpress-check-ins-api-openapi.yml
   - type: Documentation
     url: https://ppe.apidocumentation.com/
   - type: APIReference
