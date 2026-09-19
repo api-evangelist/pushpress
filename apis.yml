@@ -142,6 +142,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - Enrollment
+  tags_raw:
   - Enrollments
   properties:
   - type: OpenAPI
@@ -232,6 +234,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - APIKeys
+  tags_raw:
   - API Keys
   properties:
   - type: OpenAPI
@@ -246,6 +250,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - Check-in
+  tags_raw:
   - Check Ins
   properties:
   - type: OpenAPI
