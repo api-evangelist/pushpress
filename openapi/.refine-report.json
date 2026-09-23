@@ -1,19 +1,7 @@
 {
   "provider": "pushpress",
   "sources": [
-    "pushpress-apikeys-api-openapi.yml",
-    "pushpress-appointments-api-openapi.yml",
-    "pushpress-attributions-api-openapi.yml",
-    "pushpress-checkins-api-openapi.yml",
-    "pushpress-classes-api-openapi.yml",
-    "pushpress-company-api-openapi.yml",
-    "pushpress-customers-api-openapi.yml",
-    "pushpress-enrollments-api-openapi.yml",
-    "pushpress-events-api-openapi.yml",
-    "pushpress-invitations-api-openapi.yml",
-    "pushpress-messages-api-openapi.yml",
-    "pushpress-plans-api-openapi.yml",
-    "pushpress-webhooks-api-openapi.yml"
+    "_original/pushpress-openapi.yml"
   ],
   "outputs": [
     "pushpress-apikeys-api-openapi.yml",
@@ -30,9 +18,30 @@
     "pushpress-plans-api-openapi.yml",
     "pushpress-webhooks-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "pushpress-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "superseded outputs removed: pushpress-api-keys-api-openapi.yml, pushpress-check-ins-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 13 total)"
+  ],
+  "skipped": [
+    "pushpress-api-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-appointments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-attributions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-check-ins-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-classes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-company-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-enrollments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-invitations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-plans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pushpress-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

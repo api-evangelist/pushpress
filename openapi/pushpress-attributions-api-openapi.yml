@@ -1,13 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: PushPress Platform ApiKeys Attributions API
-  description: 'The PushPress Platform API lets developers integrate with the PushPress gym and fitness business management platform. It exposes gym members (customers), check-ins (class, appointment, event, and open-facility), appointments, classes and class types, events, plan enrollments, membership plans, company details, staff/member invitations, transactional messaging (email, SMS, push, notifications), API key management, and platform webhook subscriptions for real-time events.
-
-
-    All requests are REST over HTTPS. Every request is authenticated with an API key passed in the `API-KEY` header, and is scoped to a single gym location (company) by the `company-id` header.
-
-
-    Endpoint PATHS and HTTP METHODS in this document are grounded in PushPress''s live public API reference and the official Speakeasy-generated PushPress SDK (`@pushpress/pushpress`, production server `https://api.pushpress.com/v3`). Request and response SCHEMAS are modeled by API Evangelist to a reasonable fidelity and should be verified against the authoritative PushPress OpenAPI before code generation.'
+  title: PushPress Platform Attributions API
+  description: The PushPress Platform API lets developers integrate with the PushPress gym and fitness business management platform.
   version: '3.0'
   contact:
     name: PushPress
@@ -97,23 +91,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    Uuid:
-      name: uuid
-      in: path
-      required: true
-      description: The UUID of the resource.
-      schema:
-        type: string
   responses:
-    Unauthorized:
-      description: Missing or invalid API key.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
@@ -125,16 +111,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Attribution:
-      allOf:
-      - $ref: '#/components/schemas/AttributionInput'
-      - type: object
-        properties:
-          uuid:
-            type: string
-          createdAt:
-            type: integer
-            format: int64
     AttributionInput:
       type: object
       properties:
@@ -148,6 +124,16 @@ components:
           type: string
         campaign:
           type: string
+    Attribution:
+      allOf:
+      - $ref: '#/components/schemas/AttributionInput'
+      - type: object
+        properties:
+          uuid:
+            type: string
+          createdAt:
+            type: integer
+            format: int64
     Error:
       type: object
       properties:
@@ -158,6 +144,14 @@ components:
               type: string
             message:
               type: string
+  parameters:
+    Uuid:
+      name: uuid
+      in: path
+      required: true
+      description: The UUID of the resource.
+      schema:
+        type: string
   securitySchemes:
     api_key:
       type: apiKey
