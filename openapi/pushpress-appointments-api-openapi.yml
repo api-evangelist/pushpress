@@ -47,27 +47,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      description: The identifier of the resource.
-      schema:
-        type: string
   schemas:
     Error:
       type: object
@@ -106,6 +85,27 @@ components:
         endTime:
           type: integer
           format: int64
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      description: The identifier of the resource.
+      schema:
+        type: string
   securitySchemes:
     api_key:
       type: apiKey

@@ -191,25 +191,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     WebhookInput:
       type: object
@@ -247,13 +228,6 @@ components:
             - reservation.canceled
             - app.installed
             - app.uninstalled
-    DeleteResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        deleted:
-          type: boolean
     Error:
       type: object
       properties:
@@ -278,6 +252,32 @@ components:
           createdAt:
             type: integer
             format: int64
+    DeleteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     Uuid:
       name: uuid

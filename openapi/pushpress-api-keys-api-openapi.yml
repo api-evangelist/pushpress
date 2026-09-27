@@ -111,36 +111,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    ApiKeyInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Human-readable label for the key.
-        scopes:
-          type: array
-          items:
-            type: string
     ApiKey:
       type: object
       properties:
@@ -169,6 +140,35 @@ components:
               type: string
             message:
               type: string
+    ApiKeyInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable label for the key.
+        scopes:
+          type: array
+          items:
+            type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     Id:
       name: id
