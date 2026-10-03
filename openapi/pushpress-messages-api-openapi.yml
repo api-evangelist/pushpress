@@ -123,28 +123,38 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    NotificationInput:
       type: object
       properties:
-        error:
+        channel:
+          type: string
+          description: Ably channel to publish to.
+        event:
+          type: string
+          description: Event name to publish.
+        data:
           type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-    PushMessageInput:
+          additionalProperties: true
+    MessageResult:
       type: object
-      required:
-      - customer
       properties:
-        customer:
-          type: string
-          description: Customer UUID to push to.
-        title:
-          type: string
-        body:
+        success:
+          type: boolean
+        id:
           type: string
     SmsMessageInput:
       type: object
@@ -168,38 +178,28 @@ components:
           type: string
         body:
           type: string
-    MessageResult:
+    Error:
       type: object
       properties:
-        success:
-          type: boolean
-        id:
-          type: string
-    NotificationInput:
-      type: object
-      properties:
-        channel:
-          type: string
-          description: Ably channel to publish to.
-        event:
-          type: string
-          description: Event name to publish.
-        data:
+        error:
           type: object
-          additionalProperties: true
-  responses:
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+    PushMessageInput:
+      type: object
+      required:
+      - customer
+      properties:
+        customer:
+          type: string
+          description: Customer UUID to push to.
+        title:
+          type: string
+        body:
+          type: string
   securitySchemes:
     api_key:
       type: apiKey

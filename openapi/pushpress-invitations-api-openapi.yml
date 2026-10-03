@@ -108,7 +108,38 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    InvitationInput:
+      type: object
+      properties:
+        invitations:
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+              role:
+                type: string
     Invitation:
       type: object
       properties:
@@ -127,6 +158,13 @@ components:
         createdAt:
           type: integer
           format: int64
+    DeleteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        deleted:
+          type: boolean
     Error:
       type: object
       properties:
@@ -137,44 +175,6 @@ components:
               type: string
             message:
               type: string
-    InvitationInput:
-      type: object
-      properties:
-        invitations:
-          type: array
-          items:
-            type: object
-            properties:
-              email:
-                type: string
-              role:
-                type: string
-    DeleteResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        deleted:
-          type: boolean
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     Id:
       name: id

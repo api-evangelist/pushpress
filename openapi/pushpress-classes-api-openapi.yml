@@ -88,17 +88,31 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    ClassType:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        durationMinutes:
+          type: integer
     Class:
       type: object
       properties:
@@ -122,30 +136,16 @@ components:
           format: int64
         status:
           type: string
-    ClassType:
+    Error:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        durationMinutes:
-          type: integer
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
   parameters:
     Id:
       name: id

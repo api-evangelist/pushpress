@@ -91,7 +91,39 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    AttributionInput:
+      type: object
+      properties:
+        customer:
+          type: string
+          description: Customer UUID this attribution belongs to.
+        source:
+          type: string
+          description: Lead source, e.g. referral, google, walk-in.
+        medium:
+          type: string
+        campaign:
+          type: string
     Error:
       type: object
       properties:
@@ -112,38 +144,6 @@ components:
           createdAt:
             type: integer
             format: int64
-    AttributionInput:
-      type: object
-      properties:
-        customer:
-          type: string
-          description: Customer UUID this attribution belongs to.
-        source:
-          type: string
-          description: Lead source, e.g. referral, google, walk-in.
-        medium:
-          type: string
-        campaign:
-          type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     Uuid:
       name: uuid

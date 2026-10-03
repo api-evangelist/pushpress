@@ -44,6 +44,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
     Company:
       type: object
       properties:
@@ -65,16 +75,6 @@ components:
           type: string
         country:
           type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
   responses:
     Unauthorized:
       description: Missing or invalid API key.

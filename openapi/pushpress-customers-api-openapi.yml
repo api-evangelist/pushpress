@@ -90,16 +90,19 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
+    CustomerList:
       type: object
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        total:
+          type: integer
     Customer:
       allOf:
       - $ref: '#/components/schemas/CustomerInput'
@@ -114,19 +117,6 @@ components:
           createdAt:
             type: integer
             format: int64
-    CustomerList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Customer'
-        limit:
-          type: integer
-        offset:
-          type: integer
-        total:
-          type: integer
     CustomerInput:
       type: object
       required:
@@ -149,6 +139,35 @@ components:
         birthday:
           type: string
           format: date
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     Limit:
       name: limit
@@ -173,25 +192,6 @@ components:
       schema:
         type: integer
         default: 0
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     api_key:
       type: apiKey

@@ -71,40 +71,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-            message:
-              type: string
-    Enrollment:
-      type: object
-      properties:
-        uuid:
-          type: string
-        customer:
-          type: string
-        plan:
-          type: string
-          description: Plan ID the customer is enrolled in.
-        status:
-          type: string
-          enum:
-          - active
-          - paused
-          - canceled
-          - expired
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     Limit:
       name: limit
@@ -129,19 +108,40 @@ components:
       schema:
         type: integer
         default: 0
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  schemas:
+    Enrollment:
+      type: object
+      properties:
+        uuid:
+          type: string
+        customer:
+          type: string
+        plan:
+          type: string
+          description: Plan ID the customer is enrolled in.
+        status:
+          type: string
+          enum:
+          - active
+          - paused
+          - canceled
+          - expired
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
   securitySchemes:
     api_key:
       type: apiKey
