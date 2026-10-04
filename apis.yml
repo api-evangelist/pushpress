@@ -234,6 +234,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - APIKeys
+  tags_raw:
   - API Keys
   properties:
   - type: OpenAPI
@@ -248,6 +250,8 @@ apis:
   humanURL: https://ppe.apidocumentation.com/
   baseURL: https://api.pushpress.com/v3
   tags:
+  - Check-in
+  tags_raw:
   - Check Ins
   properties:
   - type: OpenAPI
@@ -257,6 +261,9 @@ apis:
   - type: APIReference
     url: https://ppe.apidocumentation.com/
 common:
+- type: CapabilityMap
+  url: capabilities/pushpress-capability-edges.yml
+  name: PushPress Business Capability Map
 - type: AgenticAccess
   url: agentic-access/pushpress-agentic-access.yml
 - type: DomainSecurity
