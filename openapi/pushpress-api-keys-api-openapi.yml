@@ -111,6 +111,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request payload failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     ApiKey:
       type: object
@@ -130,16 +149,6 @@ components:
         createdAt:
           type: integer
           format: int64
-    ApiKeyInput:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Human-readable label for the key.
-        scopes:
-          type: array
-          items:
-            type: string
     Error:
       type: object
       properties:
@@ -150,25 +159,16 @@ components:
               type: string
             message:
               type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request payload failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ApiKeyInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Human-readable label for the key.
+        scopes:
+          type: array
+          items:
+            type: string
   parameters:
     Id:
       name: id
