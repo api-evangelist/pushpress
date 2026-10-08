@@ -166,3 +166,53 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  - subscription
+  units:
+  - period
+  - transaction
+  plans:
+  - name: Core (Free)
+    access: free
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: Pro
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: Max
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: Add-ons (Train, Grow, Branded App)
+    access: paid
+    model: subscription
+    model_how: derived
+    units:
+    - period
+    periods:
+    - month
+  - name: Payment Processing
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - transaction
+    periods:
+    - month
